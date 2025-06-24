@@ -1,18 +1,79 @@
 package produto;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DescricaoProduto {
 
     Scanner leia = new Scanner(System.in);
-    private String modelocamisa;
+    
     private String tecido;
     private String tamanho;
     private int valorunitario;
     private int quantidade;
     private float valortotal;
+    private String formadepagamento;
+    private String Status;
+    private String formadeentrega;
+    private String prazodeentrega;
+    private int contadordoarray;
+    public int getContadordoarray() {
+        return contadordoarray;
+    }
 
+    public void setContadordoarray() {
+        contadordoarray = quantidade;
+    }
+  private String modelocamisa;
+    public String getStatus() {
+        return Status;
+    }
+
+    public String setStatus() {//ARRUMAR
+        System.out.println("Digite o status:");
+        Status = leia.nextLine();
+        return Status;
+    }
+
+    public String getFormadeentrega() {
+        return formadeentrega;
+    }
+
+    public void setFormadeentrega() {//ARRUMAR
+        System.out.println("Forma de pagar:");
+        formadeentrega = leia.nextLine();
+    }
+
+    public String getPrazodeentrega() {
+        return prazodeentrega;
+    }
+
+    public void setPrazodeentrega() {//ARRUMAR
+        System.out.println("Qual o prazo:");
+        prazodeentrega = leia.nextLine();
+    }
+
+   
+    
+    
+    
+    public String getFormadepagamento() {
+        return formadepagamento;
+    }
+
+    public String setFormadepagamento() {
+        System.out.println("Pix ou dinheiro:");
+        formadepagamento = leia.nextLine();
+       
+
+    return formadepagamento;}
+
+    
+    
+    
+    
+    
     private String selecionarOpcao(String titulo, String[] opcoes) {
         while (true) {
             System.out.println(titulo);

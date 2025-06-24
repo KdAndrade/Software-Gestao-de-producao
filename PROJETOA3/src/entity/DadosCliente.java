@@ -40,7 +40,7 @@ public class DadosCliente {
                 this.email = emailInput;
                 break;
             } else {
-                System.out.println("\nERRO");
+                System.out.println("\n--- ERRO ---");
                 System.out.println("Formato de e-mail inválido.");
                 System.out.println("O formato correto é: nome@dominio.com");
                 System.out.println("Por favor, digite novamente.\n");
@@ -76,7 +76,9 @@ public class DadosCliente {
             String telefoneInput = leia.nextLine();
             String telefoneNumerico = telefoneInput.replaceAll("[^0-9]", "");
 
-            if (telefoneNumerico.length() == 11) {
+           /*
+           OLHAR ISSO DO TELEFONE 
+           */ if (telefoneNumerico.length() == 11) {
                 this.telefone = formatarString(telefoneNumerico, "(12) 12345-1234");
                 break;
             } else {
@@ -102,7 +104,7 @@ public class DadosCliente {
                 this.cpf = formatarString(cpfNumerico, "###.###.###-##");
                 break;
             } else {
-                System.out.println("\nERRO");
+                System.out.println("\n--- ERRO ---");
                 System.out.println("Formato de CPF inválido.");
                 System.out.println("O formato correto deve conter 11 números: ###.###.###-##");
                 System.out.println("Por favor, digite novamente.\n");

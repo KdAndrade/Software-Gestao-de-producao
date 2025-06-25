@@ -46,6 +46,19 @@ public class DescricaoDAO {
         return -1;
     }
 
+
+    public void cadastrarPedidoClienteProduto(int idProduto, int idCliente) {
+    String sql = "INSERT INTO PEDIDO_CLIENTE_PRODUTO (idpedido_produto, idpedido_cliente) VALUES (?,?)";
+    try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
+        ps.setInt(1, idProduto);
+        ps.setInt(2, idCliente);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Erro ao relacionar produto e cliente");
+    }
+}
+
     public int Levaridproduto(int idprodutO) {
         idprodutO = idProduto;
         return idprodutO;

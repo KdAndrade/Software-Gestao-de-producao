@@ -41,8 +41,8 @@ public class DescricaoProduto {
     }
 
     public void setFormadeentrega() {//ARRUMAR
-        System.out.println("Forma de pagar:");
-        formadeentrega = leia.nextLine();
+        String[] opcoes = {"Sedex", "Buscar na Loja"};
+        this.tamanho = selecionarOpcao("Qual tipo de entrega deseja?", opcoes);
     }
 
     public String getPrazodeentrega() {
@@ -63,8 +63,8 @@ public class DescricaoProduto {
     }
 
     public String setFormadepagamento() {
-        System.out.println("Pix ou dinheiro:");
-        formadepagamento = leia.nextLine();
+        String[] opcoes = {"Á vista", "Parcelado"};
+        this.tamanho = selecionarOpcao("Qual forma de pagamento deseja?", opcoes);
        
 
     return formadepagamento;}

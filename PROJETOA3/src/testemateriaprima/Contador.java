@@ -30,7 +30,7 @@ public class Contador {
     }
 
 
-    public static void atualizarEstoque(String nomeCampo, int quantidadeUsada) {
+    public static int atualizarEstoque(String nomeCampo, int quantidadeUsada) {
         String sql = "UPDATE estoquemateriaprima SET " + nomeCampo + " = " + nomeCampo + " - ? LIMIT 1";
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
             ps.setInt(1, quantidadeUsada);
@@ -40,5 +40,6 @@ public class Contador {
             e.printStackTrace();
             System.out.println("Erro ao atualizar o estoque de " + nomeCampo);
         }
+        return quantidadeUsada;
     }
 }

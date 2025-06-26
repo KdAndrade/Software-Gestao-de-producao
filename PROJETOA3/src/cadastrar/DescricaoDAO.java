@@ -12,20 +12,20 @@ public class DescricaoDAO {
     public static int idProduto;
 
     public int cadastrarProduto(DescricaoProduto descricaoProduto) {
-        String sql = "INSERT INTO descricaoprodutos (quantidade, tecido, tamanho, valorunitario, modelocamisa, valortotal,formadepagamento,formadeentrega,prazodeentrega,status) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO descricaoprodutos ( tecido, tamanho, valorunitario, modelocamisa, valortotal,formadepagamento,formadeentrega,prazodeentrega,status) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement ts = Conexao.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ts.setInt(1, descricaoProduto.getQuantidade());
-            ts.setString(2, descricaoProduto.getTecido());
-            ts.setString(3, descricaoProduto.getTamanho());
-            ts.setInt(4, descricaoProduto.getValorunitario());
-            ts.setString(5, descricaoProduto.getModelocamisa());
-            ts.setFloat(6, descricaoProduto.getValortotal());
-            ts.setString(7, descricaoProduto.getFormadepagamento());
-            ts.setString(8, descricaoProduto.getFormadeentrega());
-            ts.setString(9, descricaoProduto.getPrazodeentrega());
-            ts.setString(10, descricaoProduto.getStatus());
+           
+            ts.setString(1, descricaoProduto.getTecido());
+            ts.setString(2, descricaoProduto.getTamanho());
+            ts.setInt(3, descricaoProduto.getValorunitario());
+            ts.setString(4, descricaoProduto.getModelocamisa());
+            ts.setFloat(5, descricaoProduto.getValortotal());
+            ts.setString(6, descricaoProduto.getFormadepagamento());
+            ts.setString(7, descricaoProduto.getFormadeentrega());
+            ts.setString(8, descricaoProduto.getPrazodeentrega());
+            ts.setString(9, descricaoProduto.getStatus());
             ts.executeUpdate();
 
             ResultSet ls = ts.getGeneratedKeys();

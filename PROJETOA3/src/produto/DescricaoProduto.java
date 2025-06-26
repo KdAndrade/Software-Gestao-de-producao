@@ -41,7 +41,7 @@ public class DescricaoProduto {
     }
 
     public void setFormadeentrega() {//ARRUMAR
-        System.out.println("Forma de pagar:");
+        System.out.println("Forma de entrega:");
         formadeentrega = leia.nextLine();
        
     }
@@ -63,7 +63,7 @@ public class DescricaoProduto {
         return formadepagamento;
     }
 
-    public String setFormadepagamento() {
+    public String setFormadepagamento() {   //COLOCAR COMO OPÇÕES TAMBEM
         System.out.println("Pix ou dinheiro:");
         formadepagamento = leia.nextLine();
        
@@ -105,9 +105,14 @@ public class DescricaoProduto {
         return tamanho;
     }
 
-    public void setTamanho() {
+    public void setTamanho() throws InterruptedException {
         String[] opcoes = {"P", "M", "G", "GG"};
         this.tamanho = selecionarOpcao("Qual tamanho deseja?", opcoes);
+        int i;
+        for(i=0;i<15;i++){
+            System.out.println("");
+            Thread.sleep(150);
+        }
     }
 
     public String getModelocamisa() {
@@ -133,23 +138,16 @@ public class DescricaoProduto {
     }
 
     public void setValorunitario() {
-        System.out.println("Valor unitario:");
-        valorunitario = leia.nextInt();
-        leia.nextLine();
+        
+        valorunitario = 35;
+        
+        System.out.println("Valor unitario é 35");
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade() {
-        System.out.println("Qual a quantidade:");
-        quantidade = leia.nextInt();
-        leia.nextLine();
-    }
 
     public float getValortotal() {
         return valortotal;
+       
     }
 
     public void setValortotal() {

@@ -1,6 +1,6 @@
 package produto;
 
-import java.util.ArrayList;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -41,8 +41,9 @@ public class DescricaoProduto {
     }
 
     public void setFormadeentrega() {//ARRUMAR
-        String[] opcoes = {"Sedex", "Buscar na Loja"};
-        this.tamanho = selecionarOpcao("Qual tipo de entrega deseja?", opcoes);
+        System.out.println("Forma de pagar:");
+        formadeentrega = leia.nextLine();
+       
     }
 
     public String getPrazodeentrega() {
@@ -63,8 +64,8 @@ public class DescricaoProduto {
     }
 
     public String setFormadepagamento() {
-        String[] opcoes = {"Á vista", "Parcelado"};
-        this.tamanho = selecionarOpcao("Qual forma de pagamento deseja?", opcoes);
+        System.out.println("Pix ou dinheiro:");
+        formadepagamento = leia.nextLine();
        
 
     return formadepagamento;}

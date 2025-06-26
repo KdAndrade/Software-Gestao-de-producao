@@ -5,18 +5,28 @@ import DAO.UsuarioDAO;
 import cadastrar.DescricaoDAO;
 import entity.DadosCliente;
 import produto.DescricaoProduto;
+import produto.MateriaPrima;
+import produto.PedidoMateria;
+import testemateriaprima.Contador;
 
 public class App {
     public static void main(String[] args) throws Exception {
         DadosCliente u = new DadosCliente();
+        UsuarioDAO cadastrarmateriaprima = new UsuarioDAO();
         Scanner leia = new Scanner(System.in);
+
         System.out.print("Quantos produtos deseja cadastrar? ");
         int quantidadeProdutos = leia.nextInt();
-        leia.nextLine(); // Limpa o buffer
+        leia.nextLine(); 
         ArrayList<Integer> idsProdutos = new ArrayList<>();
+        ArrayList<Integer> idsCliente = new ArrayList<>();
+
+        // Cadastro dos produtos
         for (int i = 0; i < quantidadeProdutos; i++) {
             System.out.println("\nCadastro do produto " + (i + 1) + ":");
             DescricaoProduto produto = new DescricaoProduto();
+            MateriaPrima materiaPrima = new MateriaPrima();
+
             produto.setQuantidade();
             produto.setTecido();
             produto.setTamanho();
@@ -27,23 +37,53 @@ public class App {
             produto.setFormadeentrega();
             produto.setPrazodeentrega();
             produto.setStatus();
-            int idProduto = new DescricaoDAO().cadastrarProduto(produto);
-            idsProdutos.add(idProduto);
+
+            materiaPrima.setPapel();
+            materiaPrima.setTinta();
+            materiaPrima.setVies();
+            materiaPrima.setEtiquetadeproducao();
+            materiaPrima.setEmbalagem();
+
+            // VERIFICA O ESTOQUE ANTES DE CADASTRAR
+            if (Contador.verificarEstoque("quantidadepapel", materiaPrima.getPapel()) &&
+                Contador.verificarEstoque("quantidadetinta", materiaPrima.getTinta()) &&
+                Contador.verificarEstoque("quantidadevies", materiaPrima.getVies()) &&
+                Contador.verificarEstoque("quantidadeetiqueta", materiaPrima.getEtiquetadeproducao()) &&
+                Contador.verificarEstoque("quantidadeembalagem", materiaPrima.getEmbalagem())) {
+
+                // Atualiza o estoque
+                Contador.atualizarEstoque("quantidadepapel", materiaPrima.getPapel());
+                Contador.atualizarEstoque("quantidadetinta", materiaPrima.getTinta());
+                Contador.atualizarEstoque("quantidadevies", materiaPrima.getVies());
+                Contador.atualizarEstoque("quantidadeetiqueta", materiaPrima.getEtiquetadeproducao());
+                Contador.atualizarEstoque("quantidadeembalagem", materiaPrima.getEmbalagem());
+
+                // Cadastro do produto
+                int idProduto = new DescricaoDAO().cadastrarProduto(produto);
+                idsProdutos.add(idProduto);
+
+                // Cadastro do cliente
+                u.setNome();
+                u.setTelefone();
+                u.setEmail();
+                u.setCpf();
+                u.setEndereco();
+                int idCliente = new UsuarioDAO().cadastrarUsuario(u);
+                idsCliente.add(idCliente);
+
+                // Cadastro da matéria-prima
+                int idMateriaPrima = PedidoMateria.Cadastrarmateriaprima(materiaPrima);
+
+                // Relacionamento entre produto, cliente e matéria-prima
+                cadastrarmateriaprima.cadastrarPedidoClienteProduto(idProduto, idCliente, idMateriaPrima);
+
+            } else {
+                System.out.println("Não foi possível cadastrar o pedido por falta de matéria-prima.");
+                continue;
+            }
         }
 
         System.out.println("Todos os produtos foram cadastrados!");
-
-        u.setNome();
-        u.setTelefone();
-        u.setEmail();
-        u.setCpf();
-        u.setEndereco();
         leia.close();
-
-        int idCliente = new UsuarioDAO().cadastrarUsuario(u);
-
-        for (int idProduto : idsProdutos) {
-            new UsuarioDAO().cadastrarPedidoClienteProduto(idProduto, idCliente);
-        }
     }
 }

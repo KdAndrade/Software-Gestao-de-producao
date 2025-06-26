@@ -27,7 +27,6 @@ public class App {
             DescricaoProduto produto = new DescricaoProduto();
             MateriaPrima materiaPrima = new MateriaPrima();
 
-            produto.setQuantidade();
             produto.setTecido();
             produto.setTamanho();
             produto.setValorunitario();
@@ -61,7 +60,7 @@ public class App {
                 // Cadastro do produto
                 int idProduto = new DescricaoDAO().cadastrarProduto(produto);
                 idsProdutos.add(idProduto);
-
+                //FAZER CALCULO DO VALOR TOTAL ----> VALORUNITARIO X QUANTIDADEDEPRODUTOS X (QUANTIDADEUSADA)essa ultima está no contador COLOCAR VALOR UNITARIO COMO CONSTANTE
                 // Cadastro do cliente
                 u.setNome();
                 u.setTelefone();
@@ -87,3 +86,9 @@ public class App {
         leia.close();
     }
 }
+
+
+
+
+
+//INSERT INTO estoquemateriaprima (idmateriaprima, quantidadepapel, quantidadetinta, quantidadevies, quantidadeetiqueta, quantidadeembalagem)VALUES (1, 3, 3, 3, 3, 3); resetar o estoque

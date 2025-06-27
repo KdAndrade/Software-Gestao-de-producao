@@ -8,7 +8,7 @@ public class Conexao {
 
     private static final String url = "jdbc:mysql://localhost:3306/meubancodedados?useUnicode=true&characterEncoding=utf8";
     private static final String user = "root";
-    private static final String password = "NoFioDaProducao2025";
+    private static final String password = "root";
 
     private static Connection conn;
 

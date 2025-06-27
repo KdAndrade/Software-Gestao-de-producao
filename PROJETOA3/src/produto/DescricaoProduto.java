@@ -10,25 +10,13 @@ public class DescricaoProduto {
     private String tecido;
     private String tamanho;
     private int valorunitario;
-    private int quantidade;
     private float valortotal;
     private String formadepagamento;
     private String Status;
-    private String prazodeentrega;
+    private int prazodeentrega;
     private int contadordoarray;
 
-    public int getContadordoarray() {
-        return contadordoarray;
-    }
-
-    public void setContadordoarray() {
-        contadordoarray = quantidade; // Garante que contadordoarray seja atualizado
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-        setContadordoarray(); // Atualiza contadordoarray automaticamente
-    }
+  
 
     private String modelocamisa;
 
@@ -42,12 +30,12 @@ public class DescricaoProduto {
         return Status;
     }
 
-    public String getPrazodeentrega() {
+    public int getPrazodeentrega() {
         return prazodeentrega;
     }
 
     public void setPrazodeentrega() {//Alterado
-        System.out.println("30 dias uteis");
+        prazodeentrega = 30;
     }
 
     public String getFormadepagamento() {
@@ -94,11 +82,8 @@ public class DescricaoProduto {
     public void setTamanho() throws InterruptedException {
         String[] opcoes = {"P", "M", "G", "GG"};
         this.tamanho = selecionarOpcao("Qual tamanho deseja?", opcoes);
-        int i;
-        for (i = 0; i < 15; i++) {
-            System.out.println("");
-            Thread.sleep(150);
-        }
+      
+        
     }
 
     public String getModelocamisa() {

@@ -13,7 +13,7 @@ public class DescricaoDAO {
 
     public int cadastrarProduto(DescricaoProduto descricaoProduto) {
 
-        String sql = "INSERT INTO descricaoprodutos ( tecido, tamanho, valorunitario, modelocamisa, valortotal,formadepagamento,formadeentrega,prazodeentrega,status) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO descricaoprodutos ( tecido, tamanho, valorunitario, modelocamisa, valortotal,formadepagamento,prazodeentrega,status) VALUES (?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement ts = Conexao.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -23,8 +23,8 @@ public class DescricaoDAO {
             ts.setString(4, descricaoProduto.getModelocamisa());
             ts.setFloat(5, descricaoProduto.getValortotal());
             ts.setString(6, descricaoProduto.getFormadepagamento());
-            ts.setString(8, descricaoProduto.getPrazodeentrega());
-            ts.setString(9, descricaoProduto.getStatus());
+            ts.setInt(7, descricaoProduto.getPrazodeentrega());
+            ts.setString(8, descricaoProduto.getStatus());
             ts.executeUpdate();
 
             ResultSet ls = ts.getGeneratedKeys();

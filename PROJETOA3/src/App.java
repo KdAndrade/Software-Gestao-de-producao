@@ -15,7 +15,7 @@ public class App {
         DadosCliente u = new DadosCliente();
         UsuarioDAO cadastrarmateriaprima = new UsuarioDAO();
         Scanner leia = new Scanner(System.in);
-
+        int valortotal=0;
         System.out.print("Quantos produtos deseja cadastrar? ");
         int quantidadeProdutos = leia.nextInt();
         leia.nextLine();
@@ -33,11 +33,11 @@ public class App {
             produto.setTamanho();
             produto.setValorunitario();
             produto.setModelocamisa();
-            produto.setQuantidade(10); // Exemplo de quantidade
             produto.setValortotal();
             produto.setFormadepagamento();
             produto.setPrazodeentrega();
             produto.setStatus();
+            valortotal = produto.getValorunitario()*quantidadeProdutos;
 
             // Configuração da matéria-prima
             materiaPrima.setPapel();
@@ -91,6 +91,12 @@ public class App {
         }
 
         System.out.println("Todos os produtos foram cadastrados!");
+        System.out.println("Valor Total : "+valortotal);
         leia.close();
     }
 }
+
+
+
+//INSERT INTO estoquemateriaprima (idmateriaprima, quantidadepapel, quantidadetinta, quantidadevies, quantidadeetiqueta, quantidadeembalagem)VALUES (1, 3, 3, 3, 3, 3);
+//ALTER TABLE sua_tabela AUTO_INCREMENT = 1;

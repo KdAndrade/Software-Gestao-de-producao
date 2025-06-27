@@ -13,7 +13,7 @@ public class MateriaPrima {
     }
 
     public void setPapel() {
-        papel = 100;
+        papel = 1;
     }
 
     public int getTinta() {
@@ -21,7 +21,7 @@ public class MateriaPrima {
     }
 
     public void setTinta() {
-        tinta = 100;
+        tinta = 1;
     }
 
     public int getVies() {
@@ -29,7 +29,7 @@ public class MateriaPrima {
     }
 
     public void setVies() {
-        vies = 100;
+        vies = 1;
     }
 
     public int getEtiquetadeproducao() {
@@ -37,7 +37,7 @@ public class MateriaPrima {
     }
 
     public void setEtiquetadeproducao() {
-        etiquetadeproducao = 100;
+        etiquetadeproducao = 1;
     }
 
     public int getEmbalagem() {
@@ -45,7 +45,7 @@ public class MateriaPrima {
     }
 
     public void setEmbalagem() {
-        embalagem = 100;
+        embalagem = 1;
     }
 
     public boolean verificarEstoque(int quantidadeNecessariaPapel, int quantidadeNecessariaTinta, int quantidadeNecessariaVies) {

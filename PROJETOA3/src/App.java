@@ -3,6 +3,7 @@ import DAO.UsuarioDAO;
 import cadastrar.DescricaoDAO;
 import entity.DadosCliente;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import produto.DescricaoProduto;
 import produto.MateriaPrima;
@@ -15,12 +16,30 @@ public class App {
         DadosCliente u = new DadosCliente();
         UsuarioDAO cadastrarmateriaprima = new UsuarioDAO();
         Scanner leia = new Scanner(System.in);
-        int valortotal=0;
-        System.out.print("Quantos produtos deseja cadastrar? ");
-        int quantidadeProdutos = leia.nextInt();
-        leia.nextLine();
+
+        int quantidadeProdutos = 0; // Declaração da variável
+        int valortotal = 0; // Inicialização do valor total
         ArrayList<Integer> idsProdutos = new ArrayList<>();
         ArrayList<Integer> idsCliente = new ArrayList<>();
+
+        // Validação da entrada
+        while (true) {
+            try {
+                System.out.print("Quantos produtos deseja cadastrar? ");
+                quantidadeProdutos = leia.nextInt();
+                leia.nextLine(); // Limpa o buffer do scanner
+
+                if (quantidadeProdutos > 0) {
+                    System.out.println("Você escolheu cadastrar " + quantidadeProdutos + " produtos.");
+                    break; // Sai do loop após entrada válida
+                } else {
+                    System.out.println("Quantidade inválida. Por favor, insira um número maior que zero.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número inteiro.");
+                leia.nextLine(); // Limpa o buffer do scanner para evitar loop infinito
+            }
+        }
 
         // Cadastro dos produtos
         for (int i = 0; i < quantidadeProdutos; i++) {
@@ -33,11 +52,12 @@ public class App {
             produto.setTamanho();
             produto.setValorunitario();
             produto.setModelocamisa();
-            produto.setValortotal();
             produto.setFormadepagamento();
             produto.setPrazodeentrega();
             produto.setStatus();
-            valortotal = produto.getValorunitario()*quantidadeProdutos;
+
+            // Acumula o valor total
+            valortotal += produto.getValorunitario();
 
             // Configuração da matéria-prima
             materiaPrima.setPapel();
@@ -91,12 +111,7 @@ public class App {
         }
 
         System.out.println("Todos os produtos foram cadastrados!");
-        System.out.println("Valor Total : "+valortotal);
+        System.out.println("Valor Total: " + valortotal);
         leia.close();
     }
 }
-
-
-
-//INSERT INTO estoquemateriaprima (idmateriaprima, quantidadepapel, quantidadetinta, quantidadevies, quantidadeetiqueta, quantidadeembalagem)VALUES (1, 3, 3, 3, 3, 3);
-//ALTER TABLE sua_tabela AUTO_INCREMENT = 1;

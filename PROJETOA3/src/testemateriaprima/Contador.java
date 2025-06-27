@@ -1,11 +1,12 @@
 package testemateriaprima;
 
+import conexao.Conexao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import conexao.Conexao;
 
 public class Contador {
+
     // Consulta o estoque atual da matéria-prima pelo nome do campo e compara com a quantidade solicitada
     public static boolean verificarEstoque(String nomeCampo, int quantidadeSolicitada) {
         int estoqueAtual = 0;
@@ -28,7 +29,6 @@ public class Contador {
             return true;
         }
     }
-
 
     public static int atualizarEstoque(String nomeCampo, int quantidadeUsada) {
         String sql = "UPDATE estoquemateriaprima SET " + nomeCampo + " = " + nomeCampo + " - ? LIMIT 1";

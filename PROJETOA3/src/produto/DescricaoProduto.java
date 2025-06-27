@@ -1,13 +1,12 @@
 package produto;
 
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DescricaoProduto {
 
     Scanner leia = new Scanner(System.in);
-    
+
     private String tecido;
     private String tamanho;
     private int valorunitario;
@@ -15,66 +14,53 @@ public class DescricaoProduto {
     private float valortotal;
     private String formadepagamento;
     private String Status;
-    private String formadeentrega;
     private String prazodeentrega;
     private int contadordoarray;
+
     public int getContadordoarray() {
         return contadordoarray;
     }
 
     public void setContadordoarray() {
-        contadordoarray = quantidade;
+        contadordoarray = quantidade; // Garante que contadordoarray seja atualizado
     }
-  private String modelocamisa;
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+        setContadordoarray(); // Atualiza contadordoarray automaticamente
+    }
+
+    private String modelocamisa;
+
     public String getStatus() {
         return Status;
     }
 
-    public String setStatus() {//ARRUMAR
-        System.out.println("Digite o status:");
-        Status = leia.nextLine();
+    public String setStatus() {//Ajustado
+        String[] opcoes = {"Em Andamento", "Produção", "OS Finalizada", "Expedição", "Concluído"};
+        this.Status = selecionarOpcao("Selecione o status do produto:", opcoes);
         return Status;
-    }
-
-    public String getFormadeentrega() {
-        return formadeentrega;
-    }
-
-    public void setFormadeentrega() {//ARRUMAR
-        System.out.println("Forma de entrega:");
-        formadeentrega = leia.nextLine();
-       
     }
 
     public String getPrazodeentrega() {
         return prazodeentrega;
     }
 
-    public void setPrazodeentrega() {//ARRUMAR
-        System.out.println("Qual o prazo:");
-        prazodeentrega = leia.nextLine();
+    public void setPrazodeentrega() {//Alterado
+        System.out.println("30 dias uteis");
     }
 
-   
-    
-    
-    
     public String getFormadepagamento() {
         return formadepagamento;
     }
 
-    public String setFormadepagamento() {   //COLOCAR COMO OPÇÕES TAMBEM
-        System.out.println("Pix ou dinheiro:");
-        formadepagamento = leia.nextLine();
-       
+    public String setFormadepagamento() { //Alterado
+        String[] opcoes = {"Pix", "Dinheiro", "Cartão"};
+        this.formadepagamento = selecionarOpcao("Qual a forma de pagamento?", opcoes);
 
-    return formadepagamento;}
+        return formadepagamento;
+    }
 
-    
-    
-    
-    
-    
     private String selecionarOpcao(String titulo, String[] opcoes) {
         while (true) {
             System.out.println(titulo);
@@ -109,7 +95,7 @@ public class DescricaoProduto {
         String[] opcoes = {"P", "M", "G", "GG"};
         this.tamanho = selecionarOpcao("Qual tamanho deseja?", opcoes);
         int i;
-        for(i=0;i<15;i++){
+        for (i = 0; i < 15; i++) {
             System.out.println("");
             Thread.sleep(150);
         }
@@ -138,21 +124,23 @@ public class DescricaoProduto {
     }
 
     public void setValorunitario() {
-        
+
         valorunitario = 35;
-        
+
         System.out.println("Valor unitario é 35");
     }
 
-
     public float getValortotal() {
         return valortotal;
-       
+
     }
 
     public void setValortotal() {
-        System.out.println("Valor total a pagar:");
-        valortotal = leia.nextFloat();
-        leia.nextLine();
+        if (valorunitario > 0 && contadordoarray > 0) {
+            valortotal = valorunitario * contadordoarray;
+            System.out.println("Valor total a pagar: " + valortotal);
+        } else {
+            System.out.println("Erro: valorunitario ou contadordoarray não foram inicializados corretamente.");
+        }
     }
 }

@@ -1,9 +1,6 @@
 package produto;
 
-import java.util.Scanner;
-
 public class MateriaPrima {
-    Scanner leia = new Scanner(System.in);
 
     private int papel; // quantidade em unidades
     private int tinta; // quantidade em ml
@@ -14,45 +11,57 @@ public class MateriaPrima {
     public int getPapel() {
         return papel;
     }
+
     public void setPapel() {
-        System.out.println("Quantidade de papel?");
-        papel = leia.nextInt();
-        leia.nextLine(); // Limpa o buffer
+        papel = 100;
     }
 
     public int getTinta() {
         return tinta;
     }
+
     public void setTinta() {
-        System.out.println("Quantidade de tinta?");
-        tinta = leia.nextInt();
-        leia.nextLine();
+        tinta = 100;
     }
 
     public int getVies() {
         return vies;
     }
+
     public void setVies() {
-        System.out.println("Quantidade de vies?");
-        vies = leia.nextInt();
-        leia.nextLine();
+        vies = 100;
     }
 
     public int getEtiquetadeproducao() {
         return etiquetadeproducao;
     }
+
     public void setEtiquetadeproducao() {
-        System.out.println("Quantidade de etiqueta?");
-        etiquetadeproducao = leia.nextInt();
-        leia.nextLine();
+        etiquetadeproducao = 100;
     }
 
     public int getEmbalagem() {
         return embalagem;
     }
+
     public void setEmbalagem() {
-        System.out.println("Quantidade de embalagem?");
-        embalagem = leia.nextInt();
-        leia.nextLine();
+        embalagem = 100;
     }
+
+    public boolean verificarEstoque(int quantidadeNecessariaPapel, int quantidadeNecessariaTinta, int quantidadeNecessariaVies) {
+        if (papel < quantidadeNecessariaPapel) {
+            System.out.println("Estoque insuficiente de papel. É necessário comprar mais!");
+            return false;
+        }
+        if (tinta < quantidadeNecessariaTinta) {
+            System.out.println("Estoque insuficiente de tinta. É necessário comprar mais!");
+            return false;
+        }
+        if (vies < quantidadeNecessariaVies) {
+            System.out.println("Estoque insuficiente de vies. É necessário comprar mais!");
+            return false;
+        }
+        return true;
+    }
+
 }

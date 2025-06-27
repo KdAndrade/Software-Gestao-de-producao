@@ -76,10 +76,10 @@ public class DadosCliente {
             String telefoneInput = leia.nextLine();
             String telefoneNumerico = telefoneInput.replaceAll("[^0-9]", "");
 
-           /*
-           OLHAR ISSO DO TELEFONE 
-           */ if (telefoneNumerico.length() == 11) {
-                this.telefone = formatarString(telefoneNumerico, "(12) 12345-1234");
+            /*
+            OLHAR ISSO DO TELEFONE
+             */ if (telefoneNumerico.length() == 11) {
+                this.telefone = formatarString(telefoneNumerico, "(##) #####-####");
                 break;
             } else {
                 System.out.println("\n--- ERRO ---");

@@ -1,15 +1,16 @@
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import DAO.UsuarioDAO;
 import cadastrar.DescricaoDAO;
 import entity.DadosCliente;
+import java.util.ArrayList;
+import java.util.Scanner;
 import produto.DescricaoProduto;
 import produto.MateriaPrima;
 import produto.PedidoMateria;
 import testemateriaprima.Contador;
 
 public class App {
+
     public static void main(String[] args) throws Exception {
         DadosCliente u = new DadosCliente();
         UsuarioDAO cadastrarmateriaprima = new UsuarioDAO();
@@ -17,7 +18,7 @@ public class App {
 
         System.out.print("Quantos produtos deseja cadastrar? ");
         int quantidadeProdutos = leia.nextInt();
-        leia.nextLine(); 
+        leia.nextLine();
         ArrayList<Integer> idsProdutos = new ArrayList<>();
         ArrayList<Integer> idsCliente = new ArrayList<>();
 
@@ -27,28 +28,30 @@ public class App {
             DescricaoProduto produto = new DescricaoProduto();
             MateriaPrima materiaPrima = new MateriaPrima();
 
+            // Configuração do produto
             produto.setTecido();
             produto.setTamanho();
             produto.setValorunitario();
             produto.setModelocamisa();
+            produto.setQuantidade(10); // Exemplo de quantidade
             produto.setValortotal();
             produto.setFormadepagamento();
-            produto.setFormadeentrega();
             produto.setPrazodeentrega();
             produto.setStatus();
 
+            // Configuração da matéria-prima
             materiaPrima.setPapel();
             materiaPrima.setTinta();
             materiaPrima.setVies();
             materiaPrima.setEtiquetadeproducao();
             materiaPrima.setEmbalagem();
 
-            // VERIFICA O ESTOQUE ANTES DE CADASTRAR
-            if (Contador.verificarEstoque("quantidadepapel", materiaPrima.getPapel()) &&
-                Contador.verificarEstoque("quantidadetinta", materiaPrima.getTinta()) &&
-                Contador.verificarEstoque("quantidadevies", materiaPrima.getVies()) &&
-                Contador.verificarEstoque("quantidadeetiqueta", materiaPrima.getEtiquetadeproducao()) &&
-                Contador.verificarEstoque("quantidadeembalagem", materiaPrima.getEmbalagem())) {
+            // Verifica o estoque antes de cadastrar
+            if (Contador.verificarEstoque("quantidadepapel", materiaPrima.getPapel())
+                    && Contador.verificarEstoque("quantidadetinta", materiaPrima.getTinta())
+                    && Contador.verificarEstoque("quantidadevies", materiaPrima.getVies())
+                    && Contador.verificarEstoque("quantidadeetiqueta", materiaPrima.getEtiquetadeproducao())
+                    && Contador.verificarEstoque("quantidadeembalagem", materiaPrima.getEmbalagem())) {
 
                 // Atualiza o estoque
                 Contador.atualizarEstoque("quantidadepapel", materiaPrima.getPapel());
@@ -60,7 +63,7 @@ public class App {
                 // Cadastro do produto
                 int idProduto = new DescricaoDAO().cadastrarProduto(produto);
                 idsProdutos.add(idProduto);
-                //FAZER CALCULO DO VALOR TOTAL ----> VALORUNITARIO X QUANTIDADEDEPRODUTOS X (QUANTIDADEUSADA)essa ultima está no contador COLOCAR VALOR UNITARIO COMO CONSTANTE
+
                 // Cadastro do cliente
                 u.setNome();
                 u.setTelefone();
@@ -71,7 +74,10 @@ public class App {
                 idsCliente.add(idCliente);
 
                 // Cadastro da matéria-prima
-                int idMateriaPrima = PedidoMateria.Cadastrarmateriaprima(materiaPrima);
+                int idMateriaPrima = PedidoMateria.Cadastrarmateriaprima(materiaPrima,
+                        materiaPrima.getPapel(),
+                        materiaPrima.getTinta(),
+                        materiaPrima.getVies());
 
                 // Relacionamento entre produto, cliente e matéria-prima
                 cadastrarmateriaprima.cadastrarPedidoClienteProduto(idProduto, idCliente, idMateriaPrima);
@@ -80,15 +86,11 @@ public class App {
                 System.out.println("Não foi possível cadastrar o pedido por falta de matéria-prima.");
                 continue;
             }
+
+            System.out.println("Produto " + (i + 1) + " cadastrado com sucesso!");
         }
 
         System.out.println("Todos os produtos foram cadastrados!");
         leia.close();
     }
 }
-
-
-
-
-
-//INSERT INTO estoquemateriaprima (idmateriaprima, quantidadepapel, quantidadetinta, quantidadevies, quantidadeetiqueta, quantidadeembalagem)VALUES (1, 3, 3, 3, 3, 3); resetar o estoque

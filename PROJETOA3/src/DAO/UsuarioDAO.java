@@ -1,14 +1,14 @@
 package DAO;
 
+import conexao.Conexao;
+import entity.DadosCliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import conexao.Conexao;
-import entity.DadosCliente;
-
 
 public class UsuarioDAO {
+
     public int cadastrarUsuario(DadosCliente dadoscliente) {
         int idcliente = -1;
         String sql = "INSERT INTO DADOSCLIENTE (NOME,TELEFONE,EMAIL, CPF, ENDEREÇO) VALUES (?,?,?,?,?)";
@@ -36,20 +36,20 @@ public class UsuarioDAO {
     public int cadastrarPedidoClienteProduto(int idProduto, int idCliente, int idMateriaPrima) {
         int idpedido = -1;
         String sql = "INSERT INTO PEDIDO_CLIENTE_PRODUTO (idpedido_produto, idpedido_cliente, idmateriaprima) VALUES (?,?,?)";
-        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, idProduto);
             ps.setInt(2, idCliente);
             ps.setInt(3, idMateriaPrima);
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
-           if (rs.next()) {
+            if (rs.next()) {
                 idpedido = rs.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Erro pedido cliente produto");
         }
-        
+
         return idpedido;
     }
 
